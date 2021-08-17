@@ -18,7 +18,7 @@ const ADDRESS: &'static str = "ipc://socket";
 // const ADDRESS: &'static str = "inproc://test";
 // const ADDRESS: &'static str = "tcp://localhost:9999";
 const ITERATIONS: u64 = 10_000;
-const IPSUM_SIZE: u64 = 100_000;
+const IPSUM_SIZE: u64 = 1_000;
 const CAPACITY: usize = 50_000_000;
 
 #[tokio::main]
