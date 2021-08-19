@@ -8,19 +8,17 @@ use std::{
 };
 
 use anyhow::Result;
-use shmem_ipc::sharedring::{Receiver, Sender};
+use shmem_ipc::sharedring::{Receiver as ShmemReceiver, Sender as ShmemSender};
 
-use crate::CAPACITY;
-
-pub struct QuickClient {
-    sender: Sender<u8>,
+pub struct Sender {
+    sender: ShmemSender<u8>,
 }
 
-impl QuickClient {
+impl Sender {
     pub fn new(capacity: u64, memfd: File, empty_signal: File, full_signal: File) -> Result<Self> {
         // Setup the ringbuffer.
-        let sender: Sender<u8> = Sender::open(capacity as usize, memfd, empty_signal, full_signal)?;
-        Ok(QuickClient { sender })
+        let sender = ShmemSender::open(capacity as usize, memfd, empty_signal, full_signal)?;
+        Ok(Sender { sender })
     }
 
     pub fn send<S: AsRef<str>>(&mut self, msg: S) -> Result<()> {

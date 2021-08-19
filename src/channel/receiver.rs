@@ -7,33 +7,26 @@ use std::{
 
 use anyhow::Result;
 use humansize::{file_size_opts, FileSize};
-use shmem_ipc::sharedring::Receiver;
+use shmem_ipc::sharedring::Receiver as ShmemReceiver;
 
-use crate::CAPACITY;
-
-pub struct QuickServer {
-    receiver: Receiver<u8>,
+pub struct Receiver {
+    receiver: ShmemReceiver<u8>,
 }
 
-impl QuickServer {
-    pub fn new() -> Result<(Self, File, File, File, u64)> {
-        println!(
-            "Buffer: {}",
-            CAPACITY.file_size(file_size_opts::DECIMAL).unwrap()
-        );
-
+impl Receiver {
+    pub fn new(buffer: u64) -> Result<(Self, File, File, File, u64)> {
         // Create a receiver in shared memory.
-        let receiver = Receiver::new(CAPACITY as usize)?;
+        let receiver = ShmemReceiver::new(buffer as usize)?;
         let mem_fd = receiver.memfd().as_file().try_clone()?;
         let empty_signal = receiver.empty_signal().try_clone()?;
         let full_signal = receiver.full_signal().try_clone()?;
 
         Ok((
-            QuickServer { receiver },
+            Receiver { receiver },
             mem_fd,
             empty_signal,
             full_signal,
-            CAPACITY as u64,
+            buffer,
         ))
     }
 

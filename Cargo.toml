@@ -1,5 +1,5 @@
 [package]
-name = "nng-simdjson"
+name = "quick"
 version = "0.1.0"
 edition = "2018"
 
@@ -11,11 +11,9 @@ humansize = "1.1.1"
 humantime = "2.1.0"
 libc = "0.2.99"
 lipsum = "0.8.0"
-lz4_flex = { version = "0.8.0", default-features = false, features = [
-    "checked-decode",
-] }
 mimalloc = { version = "0.1.26", default-features = false }
-nng = "1.0.0"
 shmem-ipc = "0.2.0"
 simd-json = "0.4.7"
 tokio = { version = "1.10.0", features = ["full"] }
+uds = { version = "0.2.6", features = ["mio", "tokio"] }
+tokio-compat-02 = "0.2"
