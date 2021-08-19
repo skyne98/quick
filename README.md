@@ -1,5 +1,5 @@
 # QUICK
-**Tiny, but furious IPC/RPC library ⚡️**
+**Tiny, but furious IPC/RPC library for Linux 🐧**
 
 ⚠️ THIS LIBRARY IS CURRENTLY UNDER DEVELOPMENT, PLEASE **DON'T USE IT IN PRODUCTION** ⚠️
 
